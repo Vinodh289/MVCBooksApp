@@ -1,0 +1,78 @@
+﻿@model IEnumerable<MVCBooksApp.Models.Book>
+@{
+    ViewBag.Title = "Books";
+}
+
+
+<br />
+<h4>Book list</h4>
+<hr />
+<link rel="stylesheet" , href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css" />
+<link rel="stylesheet" , href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" />
+
+<table width="100%" class="table-sm table-hover table-bordered" id="example">
+    <thead class="bg-success text-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookGenre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookAuthor)
+            </th>
+
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>
+                BookTitle
+            </th>
+            <th>
+                BookCategory
+            </th>
+            <th>
+                BookAuthor
+            </th>
+        </tr>
+    </tbody>
+</table>
+<br />
+@section scripts{
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                "ajax": {
+                    "url": "/Home/GetBooks",
+                    "type": "get",
+                    "datatype": "json",
+                },
+                "columns": [
+                    { "data": "BookTitle" },
+                    { "data": "BookGenre" },
+                    { "data": "BookAuthor" },
+
+                    {
+                        "data": "BookId", "render": function (idhere) {
+                            return "<a class='btn btn-sm btn-warning text-light', style='margin-left:px' data-toggle='tooltip' title='Book details' href='@Url.Action("Details", "Home")/" + idhere+"' > <i class='fas fa-info-circle iconop'></i> Details</a >";
+                        },
+                        "orderable": false,
+                        "width": "245px"
+                    }
+                ],
+                "language": {
+                    "emptyTable": "No data found, Add new items"
+                }
+            });
+        });
+    </script>
+    }
