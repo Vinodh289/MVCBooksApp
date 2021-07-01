@@ -15,20 +15,6 @@ namespace MVCBooksApp.Controllers
             return View();
         }
 
-        //public ActionResult About()
-        //{
-        //    ViewBag.Message = "Your application description page.";
-
-        //    return View();
-        //}
-
-        //public ActionResult Contact()
-        //{
-        //    ViewBag.Message = "Your contact page.";
-
-        //    return View();
-        //}
-
         public ActionResult Books()
         {
             MVCBooksApp.Models.Book bookList = new Book();
@@ -39,6 +25,7 @@ namespace MVCBooksApp.Controllers
         {
             MVCBooksApp.Models.Book bookList = new Book();
             var booklist = bookList.getBooksList();
+            var booklist1 = bookList.GetBooks();
             return Json(new { data = booklist }, JsonRequestBehavior.AllowGet);
         }
 
